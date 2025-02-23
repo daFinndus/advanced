@@ -84,13 +84,13 @@ val Init: State = state {
         /** start interaction */
         when {
             users.hasAny() -> {
-                log.debug("User present - start the interaction. ")
+                log.debug("User present - start the interaction.")
                 furhat.attend(users.random)
                 goto(WaitingToStart)
             }
 
             else -> {
-                log.debug("No users present - idling. ")
+                log.debug("No users present - idling.")
                 goto(Idle) // Consider starting the interaction in Sleep.
             }
         }

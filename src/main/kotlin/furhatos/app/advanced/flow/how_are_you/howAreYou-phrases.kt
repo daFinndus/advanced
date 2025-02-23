@@ -7,13 +7,13 @@ import furhatos.gestures.Gestures
 val phrases = HowAreYouPhrases()
 
 class HowAreYouPhrases {
-    val feelGood: String = listOf("good", "pretty good").random()
+    val feelGood: String = listOf("Good", "Pretty good").random()
     val feelGoodUtterance: Utterance
         get() = utterance {
             +"I feel"
             random {
-                +"good"
-                +"pretty good"
+                +"good."
+                +"pretty good."
             }
             +Gestures.BigSmile
         }
@@ -26,12 +26,12 @@ class HowAreYouPhrases {
             }
         }
 
-    fun gladYouFeelGood(positiveWord: String? = "good"): Utterance {
+    fun gladYouFeelGood(positiveWord: String? = "Good"): Utterance {
         if (positiveWord != null) {
             return utterance {
                 random {
-                    +"Glad to hear you feel $positiveWord"
-                    +"Nice that you feel $positiveWord"
+                    +"Glad to hear you feel $positiveWord."
+                    +"Nice that you feel $positiveWord."
                 }
                 delay(200)
             }

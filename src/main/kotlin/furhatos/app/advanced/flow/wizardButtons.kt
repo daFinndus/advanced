@@ -23,7 +23,7 @@ val TestButtons = partialState {
     onButton("Idle", color = Color.Blue, section = Section.RIGHT) {
         goto(Idle)
     }
-    onButton("WaitingForEngagedUser", color = Color.Blue, section = Section.RIGHT) {
+    onButton("Waiting for engaged user", color = Color.Blue, section = Section.RIGHT) {
         goto(WaitingToStart)
     }
     onButton("Active", color = Color.Blue, section = Section.RIGHT) {
@@ -38,20 +38,20 @@ val TestButtons = partialState {
     onButton("Nap", color = Color.Blue, section = Section.RIGHT) {
         goto(Nap)
     }
-    onButton("DeepSleep", color = Color.Blue, section = Section.RIGHT) {
+    onButton("Deep sleep", color = Color.Blue, section = Section.RIGHT) {
         goto(DeepSleep)
     }
 
     onButton("WakeUp", color = Color.Yellow, section = Section.RIGHT) {
         furhat.wakeUp()
     }
-    onButton("WakeUp", color = Color.Yellow, section = Section.RIGHT) {
+    onButton("Wake up", color = Color.Yellow, section = Section.RIGHT) {
         furhat.fallASleep()
     }
-    onButton("WakeUp", color = Color.Yellow, section = Section.RIGHT) {
+    onButton("Wake up", color = Color.Yellow, section = Section.RIGHT) {
         furhat.beIdle()
     }
-    onButton("WakeUp", color = Color.Yellow, section = Section.RIGHT) {
+    onButton("Wake up", color = Color.Yellow, section = Section.RIGHT) {
         furhat.beActive()
     }
 

@@ -15,14 +15,14 @@ val hearSpeechGesture = defineGesture("hearSpeechGesture") {
 }
 
 // Raise the eyebrows slightly instead to signal interest
-val Listening = defineGesture("Listening") {
+val listening = defineGesture("listening") {
     frame(0.4, persist = true) {
         Gestures.BrowRaise to 0.8
         Gestures.Smile to 0.6
     }
 }
 
-val Normal = defineGesture("Normal") {
+val normal = defineGesture("normal") {
     frame(0.4, persist = true) {
         Gestures.BrowRaise to 0.0
         Gestures.Smile to 0.0

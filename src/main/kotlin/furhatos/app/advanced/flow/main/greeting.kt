@@ -24,9 +24,9 @@ fun GreetUser(response: Response<*>? = null): State = state(Parent) {
     onPartialResponse<Greeting> {
         furhat.say {
             random {
-                +"Hi"
-                +"Hello"
-                +"Hi there"
+                +"Hi!"
+                +"Hello!"
+                +"Hi there!"
             }
         }
         // Raising the secondary intent will cause our triggers to handle the second part of the intent
@@ -36,9 +36,9 @@ fun GreetUser(response: Response<*>? = null): State = state(Parent) {
     onResponse<Greeting> {
         furhat.say {
             random {
-                +"Hi"
-                +"Hello"
-                +"Hi there"
+                +"Hi!"
+                +"Hello!"
+                +"Hi there!"
             }
         }
         goto(Active)
@@ -47,8 +47,8 @@ fun GreetUser(response: Response<*>? = null): State = state(Parent) {
         furhat.say {
             +"I feel"
             random {
-                +"good"
-                +"pretty good"
+                +"good."
+                +"pretty good."
             }
             Gestures.BigSmile
         }

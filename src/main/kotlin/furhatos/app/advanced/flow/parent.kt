@@ -60,7 +60,7 @@ val PowerSaving: State = state(parent = Global) {
     onEntry(inherit = true) {
         delay(5, TimeUnit.SECONDS) //stay asleep for at least 5 seconds before being able to wake up again
     }
-    onButton("Wake Up") {
+    onButton("Wake up") {
         furhat.wakeUp()
         if (users.hasAny()) goto(WaitingToStart) else goto(Idle)
     }
