@@ -10,7 +10,7 @@ import furhatos.flow.kotlin.partialState
 
 /** Universal button ta always be present **/
 val UniversalWizardButtons = partialState {
-    onButton("restart", color = Color.Red, section = Section.LEFT) {
+    onButton("Restart", color = Color.Red, section = Section.LEFT) {
         goto(Init)
     }
     onButton("Stop speaking", color = Color.Red, section = Section.LEFT) {
@@ -32,7 +32,7 @@ val TestButtons = partialState {
     onButton("Greeting", color = Color.Blue, section = Section.RIGHT) {
         goto(GreetUser(null))
     }
-    onButton("HowAreYou", color = Color.Blue, section = Section.RIGHT) {
+    onButton("How are you", color = Color.Blue, section = Section.RIGHT) {
         call(HowAreYou)
     }
     onButton("Nap", color = Color.Blue, section = Section.RIGHT) {
@@ -55,7 +55,7 @@ val TestButtons = partialState {
         furhat.beActive()
     }
 
-    onButton("set furhat persona", color = Color.Yellow, section = Section.RIGHT) {
+    onButton("Set furhat persona", color = Color.Yellow, section = Section.RIGHT) {
         activate(furhatPersona)
     }
 }

@@ -38,9 +38,9 @@ class HowAreYouPhrases {
             }
         } else {
             return utterance {
-                random{
-                    +"Glad to hear that. "
-                    +"Nice to hear that. "
+                random {
+                    +"Glad to hear that."
+                    +"Nice to hear that."
                 }
             }
         }

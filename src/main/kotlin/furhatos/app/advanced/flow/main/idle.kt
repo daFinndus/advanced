@@ -25,7 +25,7 @@ val Idle: State = state(parent = Global) {
 
     onEntry { // on entry performed every time entering the state
         furhat.beIdle() // custom function to set the robot in a specific 'mode'
-        log.info("idling")
+        log.info("Idling now.")
     }
 
     onUserEnter {
@@ -51,22 +51,22 @@ val WaitingToStart: State = state(parent = Global) {
             // EventSystem.send(SenseUserAttend.Builder().buildEvent())
             // But it will have the unfortunate effect of clearing other user data on the user.
             // So instead we simply copy the same action here as on the onUserAttend trigger.
-            log.debug("user ${users.usersAttendingFurhat.first()} attended in ${thisState.name}")
+            log.debug("User ${users.usersAttendingFurhat.first()} attended in ${thisState.name}.")
             furhat.attend(users.usersAttendingFurhat.first())
             goto(Active)
         } else {
-            log.info("waiting for user to attend")
+            log.info("Waiting for user to attend.")
         }
     }
     onReentry {
         when {
             !users.hasAny() -> goto(Idle)
             furhat.isAttended() -> goto(Active)
-            else -> log.debug("keep idling") // do nothing particular - just keep idling
+            else -> log.debug("Keep idling.") // do nothing particular - just keep idling
         }
     }
     onUserAttend {
-        log.debug("user ${it.id} attended in ${thisState.name}")
+        log.debug("User ${it.id} attended in ${thisState.name}.")
         furhat.attend(it)
         goto(Active)
     }

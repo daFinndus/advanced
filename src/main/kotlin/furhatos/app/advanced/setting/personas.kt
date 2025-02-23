@@ -24,12 +24,11 @@ fun FlowControlRunner.activate(persona: Persona) {
 }
 
 val furhatPersona = Persona(
-        name = "Furhat",
-        face = listOf(
-                "Alex",
-                "default"), // Backup if Alex is not available
-        voice = listOf(
-                PollyNeuralVoice.Matthew(),
-                PollyNeuralVoice.Joanna()
-        ).shuffled() // The furhat persona is either male/female, so we randomize what voice to select
+    name = "Furhat",
+    face = listOf(
+        "Jane",
+    ),
+    voice = listOf(
+        PollyNeuralVoice.Joanna()
+    ).shuffled() // The furhat persona is either male/female, so we randomize what voice to select
 )

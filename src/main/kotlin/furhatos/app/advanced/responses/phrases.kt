@@ -16,8 +16,8 @@ import furhatos.gestures.Gestures
 class Phrases {
     val Q_GoOnPowerBreak = listOf(
         "Did you want me to go on a power break?",
-        "Do you want me to take a power nap? ",
-        "Is it time for a power nap? ",
+        "Do you want me to take a power nap?",
+        "Is it time for a power nap?",
         "Should I take a short Power break?"
     ).random() // Include variance in phrasing without cluttering the flow.
     val Q_NapTimeOver = listOf(
@@ -31,6 +31,9 @@ class Phrases {
         random {
             +"good"
             +"pretty good"
+            +"hella nice"
+            +"super great"
+            +"skibidi"
         }
         +Gestures.BigSmile
     }

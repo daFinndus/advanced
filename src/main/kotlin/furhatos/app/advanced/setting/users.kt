@@ -46,11 +46,12 @@ fun Furhat.attendOtherOrNobody() {
     when {
         users.count < 2 -> {
             attendNobody()
-            log.info("attending nobody")
+            log.info("Attending nobody.")
         }
+
         else -> {
             attend(users.other)
-            log.info("attending other")
+            log.info("Attending other.")
         }
     }
 }

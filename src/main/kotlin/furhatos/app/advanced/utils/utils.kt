@@ -9,7 +9,7 @@ import java.util.Properties
 val prop = Properties()
 const val skillPropertiesName = "skill.properties"
 
-fun loadProperties(){
+fun loadProperties() {
     try {
         val skillPropertiesStream = Skill::class.java.getResourceAsStream("/${skillPropertiesName}") //Works only when packaged.
         if (skillPropertiesStream == null) {
@@ -18,6 +18,6 @@ fun loadProperties(){
             prop.load(skillPropertiesStream)
         }
     } catch (_: IOException) {
-        logger.warn("Unable to load skill.properties")
+        logger.warn("Unable to load skill.properties file.")
     }
 }

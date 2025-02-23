@@ -24,8 +24,8 @@ var mode = Modes.IDLE
 /** Function to send the robot to sleep and waking it up. **/
 fun Furhat.fallASleep() {
     if (mode != Modes.SLEEPING) { // Can only fall asleep from non sleeping mode
-        log.info("Falling asleep. ")
-        log.debug("Mode: Sleeping. ")
+        log.info("Falling asleep.")
+        log.debug("Mode: Sleeping.")
         mode = Modes.SLEEPING
         dialogLogger.endSession() // end dialog logging when there is no real conversation going on
         UserManager.engagementPolicy = sleepingEngagementPolicy
@@ -37,8 +37,8 @@ fun Furhat.fallASleep() {
 
 fun Furhat.wakeUp() {
     if (mode == Modes.SLEEPING) { // Can only wake up if sleeping.
-        log.info("Waking up. ")
-        log.debug("Mode: Active. ")
+        log.info("Waking up.")
+        log.debug("Mode: Active.")
         mode = Modes.ACTIVE // We'll assume the robot will wake up to be active.
         dialogLogger.endSession() // end dialog logging when there is no real conversation going on
         gesture(GesturesLib.PerformWakeUpWithHeadShake)
@@ -48,7 +48,7 @@ fun Furhat.wakeUp() {
 fun Furhat.beActive() {
     if (mode == Modes.ACTIVE) return // skip this step if robot is already active
     if (mode == Modes.SLEEPING) wakeUp() // wake up if sleeping
-    log.debug("Mode: Active. ")
+    log.debug("Mode: Active.")
     mode = Modes.ACTIVE
     dialogLogger.startSession() // Start the dialogLogger when we have some actual conversation happening.
     UserManager.engagementPolicy = activeEngagementPolicy
@@ -58,7 +58,7 @@ fun Furhat.beActive() {
 fun Furhat.beIdle() {
     if (mode == Modes.IDLE) return // skip this step if robot is already Idle
     if (mode == Modes.SLEEPING) wakeUp() // wake up if sleeping
-    log.debug("Mode: Idling. ")
+    log.debug("Mode: Idling.")
     mode = Modes.IDLE
     dialogLogger.endSession() // end dialog logging when there is no real conversation going on
     UserManager.engagementPolicy = idleEngagementPolicy

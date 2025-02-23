@@ -57,15 +57,14 @@ const val ENGAGED_ATTEND_TIME = 2300 //milliseconds
 val AutoUserAttentionSwitching = partialState {
     val offset = 1000
     onTime(
-        delay = MAX_TIME_TO_ATTEND_USER,
-        repeat = (MAX_TIME_TO_ATTEND_USER - offset)..(MAX_TIME_TO_ATTEND_USER + offset), // Interval of how often to repeat
+        delay = MAX_TIME_TO_ATTEND_USER, repeat = (MAX_TIME_TO_ATTEND_USER - offset)..(MAX_TIME_TO_ATTEND_USER + offset), // Interval of how often to repeat
         instant = true
     ) {
         if (users.hasCurrent()) { // There is a user that furhat is attending
             when {
                 users.current.isAttendingFurhat -> { // user is looking at furhat, and furhat is looking at user
                     //do nothing
-                    log.debug("keeping attention on user")
+                    log.debug("Keeping attention on user.")
                 }
 
                 users.usersAttendingFurhat.isNotEmpty() -> { // no one is attending furhat we are expected to return to wait for user attention
@@ -86,11 +85,10 @@ val AutoUserAttentionSwitching = partialState {
 val AutoGlanceAway = partialState {
     val offset = 500
     onTime(
-        delay = STARE_TIMEOUT,
-        repeat = (STARE_TIMEOUT - offset)..(STARE_TIMEOUT + offset), // Interval of how often to repeat
+        delay = STARE_TIMEOUT, repeat = (STARE_TIMEOUT - offset)..(STARE_TIMEOUT + offset), // Interval of how often to repeat
         instant = true
     ) {
-        log.info("breaking eye contact")
+        log.info("Breaking eye contact.")
         furhat.glance(Location.DOWN)
     }
 }
@@ -100,17 +98,15 @@ val AutoGlanceAway = partialState {
  */
 val SeekAttention = partialState {
     onTime(
-        delay = ATTEND_OTHER_TIMEOUT,
-        repeat = ATTEND_OTHER_TIMEOUT,
-        instant = true
+        delay = ATTEND_OTHER_TIMEOUT, repeat = ATTEND_OTHER_TIMEOUT, instant = true
     ) {
-        log.info("On time: Re-evaluate what user to attend")
+        log.info("On time: Re-evaluate what user to attend.")
         when {
             // 1. No users to seek attention from? Raise an event for the flow to handle.
             users.count == 0 -> raise(NoUsersPresentEvent())  //
             // 2. Furhat is not attending anyone - find someone to attend
             !furhat.isAttendingUser -> {
-                log.debug("Furhat is idling, not attending a user")
+                log.debug("Furhat is idling, not attending a user.")
                 furhat.attend(users.nextMostEngagedUser())
             }
 
@@ -126,9 +122,7 @@ val SeekAttention = partialState {
         reentry()
     }
     onTime(
-        delay = ATTEND_NOBODY_TIMEOUT,
-        repeat = ATTEND_NOBODY_TIMEOUT,
-        instant = true
+        delay = ATTEND_NOBODY_TIMEOUT, repeat = ATTEND_NOBODY_TIMEOUT, instant = true
     ) {
         log.info("Take a break from looking at people. ")
         furhat.attendNobody()
@@ -156,14 +150,14 @@ val DeepSleepWhenNeglected = partialState {
 val UniversalFallbackBehaviour = partialState {
 
     onNoResponse {
-        furhat.say("Sorry I didn't hear you. ")
+        furhat.say("Sorry I didn't hear you.")
         reentry()
     }
     onNoResponse() {
         noInput++
         when (noInput) {
-            0 -> furhat.say("Sorry I didn't hear you. ")
-            else -> furhat.say("Sorry I still didn't hear you. ")
+            0 -> furhat.say("Sorry I didn't hear you.")
+            else -> furhat.say("Sorry I still didn't hear you.")
         }
         reentry()
     }
@@ -206,8 +200,7 @@ val NapHeadMovements = partialState {
             // Regulates when Furhat does idle head movements
             val gesture = napHeadMovements(
                 // these overrides the ones defined in idleheadmovements, was also affecting other functions that have been removed. This is kept if we want to expand this in the future.
-                strength = 1.0,
-                duration = 2.0, // Affect how fast the idle head movements will be
+                strength = 1.0, duration = 2.0, // Affect how fast the idle head movements will be
                 amplitude = 5.0, // How big the head movements will be
                 gazeAway = false // Function removed, but kept here if we re-introduce
             )
@@ -219,10 +212,8 @@ var enableNapHeadMovements = true
 
 fun getRandomDirection(): Double {
     // Randomizes if Furhat is looking left/right and up/down
-    return if (Math.random() < 0.5)
-        -1.0 // negative
-    else
-        +1.0 // positive
+    return if (Math.random() < 0.5) -1.0 // negative
+    else +1.0 // positive
 }
 
 fun getScaleParameter(): Double {
@@ -231,21 +222,17 @@ fun getScaleParameter(): Double {
 }
 
 fun napHeadMovements(
-    strength: Double = 1.0,
-    duration: Double = 1.0,
-    amplitude: Double = 5.0,
-    gazeAway: Boolean = false
-) =
-    defineGesture("headMove", strength = strength, duration = duration) {
-        frame(1.5, 8.5) {
-            // This regulates how long the position will be held and how fast Furhat gets there. Multiplied with duration.
-            BasicParams.NECK_TILT to amplitude * getScaleParameter()
-            BasicParams.NECK_ROLL to amplitude * getScaleParameter()
-            BasicParams.NECK_PAN to 0.0
-            // the direction (tilt/roll/pan) of the position shift is completely random. Does not affect attention
-        }
-        reset(10.0)
+    strength: Double = 1.0, duration: Double = 1.0, amplitude: Double = 5.0, gazeAway: Boolean = false
+) = defineGesture("headMove", strength = strength, duration = duration) {
+    frame(1.5, 8.5) {
+        // This regulates how long the position will be held and how fast Furhat gets there. Multiplied with duration.
+        BasicParams.NECK_TILT to amplitude * getScaleParameter()
+        BasicParams.NECK_ROLL to amplitude * getScaleParameter()
+        BasicParams.NECK_PAN to 0.0
+        // the direction (tilt/roll/pan) of the position shift is completely random. Does not affect attention
     }
+    reset(10.0)
+}
 
 val DEFAULT_MICROEXPRESSIONS = defineMicroexpression {
     // Fluctuate facial movements. First parameter is frequency, second amplitude, third adjustment.
@@ -271,11 +258,7 @@ val LISTENING_MICROEXPRESSIONS = defineMicroexpression {
     // Note! We have to set all values defined by other MicroExpressions to make sure we are overwriting them
     fluctuate(0.025, 0.0, 0.0, BasicParams.EXPR_SAD)
     fluctuate(
-        0.025,
-        -0.2,
-        0.2,
-        BasicParams.EYE_SQUINT_LEFT,
-        BasicParams.EYE_SQUINT_RIGHT
+        0.025, -0.2, 0.2, BasicParams.EYE_SQUINT_LEFT, BasicParams.EYE_SQUINT_RIGHT
     )
     fluctuate(0.025, 0.05, 0.08, BasicParams.PHONE_BIGAAH)
     // Adjust eye gaze randomly (between -3 and 3 degrees) with a random interval of 200-400 ms.

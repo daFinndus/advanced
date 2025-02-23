@@ -11,13 +11,13 @@ import furhatos.util.Language
 class NiceToMeetYouIntent : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "glad to meet you",
-            "a pleasure to meet you",
-            "nice to see you",
-            "great to meet you",
-            "happy to see you",
-            "very nice to finally meet you",
-            "fun to meet up with you"
+            "Glad to meet you",
+            "A pleasure to meet you",
+            "Nice to see you",
+            "Great to meet you",
+            "Happy to see you",
+            "Very nice to finally meet you",
+            "Fun to meet up with you"
         )
     }
 }
@@ -25,14 +25,14 @@ class NiceToMeetYouIntent : Intent() {
 class HowAreYouIntent : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "how are you",
-            "how are you doing today",
-            "what's up",
-            "how are things with you",
-            "how's it going?",
-            "how are you feeling",
-            "how's life",
-            "what's going on with you"
+            "How are you",
+            "How are you doing today",
+            "What's up",
+            "How are things with you",
+            "How's it going?",
+            "How are you feeling",
+            "How's life",
+            "What's going on with you"
         )
     }
 }
@@ -41,8 +41,8 @@ class HelpIntent : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
             "I need help",
-            "help me please",
-            "can someone help me",
+            "Help me please",
+            "Can someone help me",
             "I need assistance"
         )
     }
@@ -52,14 +52,14 @@ class WhatIsThisIntent : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
             "What is this",
-            "what am I supposed to say",
-            "what should I say",
+            "What am I supposed to say",
+            "What should I say",
             "I don't know what to do",
-            "what am I supposed to do now",
-            "should I say something",
-            "what's going on",
-            "what is happening here",
-            "can someone tell me what is going on"
+            "What am I supposed to do now",
+            "Should I say something",
+            "What's going on",
+            "What is happening here",
+            "Can someone tell me what is going on"
         )
     }
 }

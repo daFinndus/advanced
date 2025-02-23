@@ -13,8 +13,8 @@ val UniversalResponses = partialState {
             random {
                 +"I don't know how to respond to that."
                 +"I don't know what to say."
-                +"I'm at a loss here. "
-                +"I don't know what to say to that. "
+                +"I'm at a loss here."
+                +"I don't know what to say to that."
             }
         }
     }

@@ -39,15 +39,15 @@ val HowAreYou: State = state {
 }
 
 /** Run this to test the intents of this state from the command line. **/
-fun main(args: Array<String>) {
+fun main() {
     while (true) {
         val utterance = readLine()
         val results = HowAreYou.getIntentClassifier(lang = Language.ENGLISH_US).classify(utterance!!)
         if (results.isEmpty()) {
-            println("No match")
+            println("No match.")
         } else {
             results.forEach {
-                println("Matched ${it.intents} with ${it.conf} confidence")
+                println("Matched ${it.intents} with ${it.conf} confidence.")
             }
         }
     }

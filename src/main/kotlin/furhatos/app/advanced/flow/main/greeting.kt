@@ -24,9 +24,9 @@ fun GreetUser(response: Response<*>? = null): State = state(Parent) {
     onPartialResponse<Greeting> {
         furhat.say {
             random {
-                +"Hi!"
-                +"Hello!"
-                +"Hi there!"
+                +"Hi"
+                +"Hello"
+                +"Hi there"
             }
         }
         // Raising the secondary intent will cause our triggers to handle the second part of the intent
@@ -36,9 +36,9 @@ fun GreetUser(response: Response<*>? = null): State = state(Parent) {
     onResponse<Greeting> {
         furhat.say {
             random {
-                +"Hi!"
-                +"Hello!"
-                +"Hi there!"
+                +"Hi"
+                +"Hello"
+                +"Hi there"
             }
         }
         goto(Active)
@@ -58,9 +58,9 @@ fun GreetUser(response: Response<*>? = null): State = state(Parent) {
     onResponse<NiceToMeetYouIntent> {
         furhat.say {
             random {
-                +"Nice too meet you too. "
-                +"My pleasure. "
-                +"Nice to see you as well. "
+                +"Nice too meet you too."
+                +"My pleasure."
+                +"Nice to see you as well."
             }
             +Gestures.BigSmile
         }
@@ -77,17 +77,17 @@ fun GreetUser(response: Response<*>? = null): State = state(Parent) {
 }
 
 /** Run this to test the intents of this state from the run terminal in IntelliJ. **/
-fun main(args: Array<String>) {
-    println("Type to test the intents of this state. (please ignore the initial error messages)")
+fun main() {
+    println("Type to test the intents of this state (Ignore the initial error message).")
     while (true) {
         println("Enter your user response...")
         val utterance = readLine()
         val results = GreetUser(null).getIntentClassifier(lang = Language.ENGLISH_US).classify(utterance!!)
         if (results.isEmpty()) {
-            println("No match")
+            println("No match.")
         } else {
             results.forEach {
-                println("Matched ${it.intents} with ${it.conf} confidence")
+                println("Matched ${it.intents} with ${it.conf} confidence.")
             }
         }
     }

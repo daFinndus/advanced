@@ -19,7 +19,7 @@ import furhatos.nlu.common.Greeting
 val Active: State = state(Parent) {
     onEntry {
         furhat.beActive()
-        log.debug("now I'm listening")
+        log.debug("Now I'm listening!")
 
         // We're leaving the initiative to the user and extending the listen timeout from default 5000 ms to 8000 ms.
         furhat.listen(8000)

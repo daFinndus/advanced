@@ -30,7 +30,7 @@ val Normal = defineGesture("Normal") {
     reset(0.5)
 }
 
-val reset = defineGesture("reset") {
+val reset = defineGesture("Reset") {
     frame(0.3) {
         BasicParams.NECK_PAN to 0.0
         BasicParams.NECK_ROLL to 0.0

@@ -15,4 +15,3 @@ val timeOfDay = when (hourOfDay) {
     in 22..23 -> "night"
     else -> ""
 }
-// furhat.say("Nice to meet you this lovely ${dayOfWeek} ${timeOfDay}")

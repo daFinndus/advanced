@@ -45,8 +45,8 @@ var sleepingColorIsSet = false
  * State to monitor and set LED colour
  */
 val InteractionGlow: State = state {
-    onEntry{
-       log.info("Starting parallel flow to monitor and set LED ring color.")
+    onEntry {
+        log.info("Starting parallel flow to monitor and set LED ring color.")
     }
     onTime(repeat = 200) {
         // Turn on LED's when active or passive
@@ -87,6 +87,7 @@ fun Furhat.setModeGlow() {
                 }
             }
         }
+
         Modes.IDLE -> {
             when {
                 !idlingGlow -> ledStrip.solid(OFF_COLOUR)
@@ -96,6 +97,7 @@ fun Furhat.setModeGlow() {
                 }
             }
         }
+
         Modes.SLEEPING -> {
             when {
                 !sleepingGlow -> ledStrip.solid(OFF_COLOUR)
@@ -142,7 +144,7 @@ fun ListenFader(fadeTime: Int): State = state {
         furhat.ledStrip.solid(listenLedColor)
     }
     onExit {
-        print("exit")
+        print("Exiting.")
         listenLedColor = LISTEN_COLOUR
     }
 }

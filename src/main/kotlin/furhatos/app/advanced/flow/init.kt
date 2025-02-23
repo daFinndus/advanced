@@ -37,7 +37,7 @@ val Init: State = state {
         testMode = true
 
         /** define listening parameters */
-        furhat.param.endSilTimeout = 800 //milliseconds
+        furhat.param.endSilTimeout = 1000 //milliseconds
         furhat.param.noSpeechTimeout = 5000 //milliseconds
         furhat.param.maxSpeechTimeout = 15000 //milliseconds
 
@@ -50,9 +50,9 @@ val Init: State = state {
 
         /** define our default smile back behavior */
         furhat.enableSmileBack = true
-        smileProbability = 0.4
+        smileProbability = 0.5
         bigSmileProbability = 0.3
-        smileBlockDelay = 5000//milliseconds
+        smileBlockDelay = 5000 //milliseconds
 
         /** enable alternate intent classifier
         see: https://docs.furhat.io/nlu/#alternative-classification */
@@ -68,10 +68,7 @@ val Init: State = state {
         if (testMode) {
             // Ensure the logs directory exists before writing the log file
             val logDir = File("logs")
-            if (!logDir.exists()) {
-                logDir.mkdirs() // Create directory if it doesn't exist
-            }
-
+            if (!logDir.exists()) logDir.mkdirs() // Create directory if it doesn't exist
             val flowLoggerFile = File(logDir, "flowlog.txt")
             flowLogger.start(flowLoggerFile)
         }
@@ -79,6 +76,7 @@ val Init: State = state {
         /** Start parallel flow to manage the LED **/
         parallel(abortOnExit = false) { goto(InteractionGlow) }
     }
+    
     onEntry {
         /** Set our main character - defined in personas */
         activate(furhatPersona)
@@ -90,6 +88,7 @@ val Init: State = state {
                 furhat.attend(users.random)
                 goto(WaitingToStart)
             }
+
             else -> {
                 log.debug("No users present - idling. ")
                 goto(Idle) // Consider starting the interaction in Sleep.

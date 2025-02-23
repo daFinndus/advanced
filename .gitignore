@@ -1,3 +1,4 @@
+# Default furhat ignore file for IntelliJ IDEA
 node_modules/
 /out
 /build
