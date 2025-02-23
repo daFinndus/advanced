@@ -21,9 +21,8 @@ class HowAreYouPhrases {
         get() = utterance {
             random {
                 // use prosody tag for emphasis
-                +"How are <prosody rate='85%'>you today?</prosody>"
-                +"How are <prosody rate='85%'>you,</prosody> today?"
-                +"How do <prosody rate='85%'>you,</prosody> feel today?"
+                +"How are you today?"
+                +"How do you feel today?"
             }
         }
 
