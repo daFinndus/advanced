@@ -11,14 +11,14 @@ class PositiveReactionIntent(
     override fun getExamples(lang: Language): List<String> {
         return listOf(
             "@positiveExpressionEntity",
-            "not @negativeExpressionEntity",
-            "not too @negativeExpressionEntity"
+            "Nicht @negativeExpressionEntity",
+            "Nicht so @negativeExpressionEntity"
         )
     }
 
     override fun getNegativeExamples(lang: Language): List<String> {
         return listOf(
-            "not @positiveExpressionEntity",
+            "Nicht @positiveExpressionEntity",
             "@negativeExpressionEntity"
         )
     }
@@ -27,97 +27,72 @@ class PositiveReactionIntent(
 class PositiveExpressionEntity : EnumEntity() {
     override fun getEnum(lang: Language): List<String> {
         return listOf(
-            "great",
-            "fine:fine,define",
-            "happy",
-            "nice",
-            "fantastic",
-            "awesome",
-            "good:good,best",
-            "amazing",
-            "incredible",
-            "excellent",
-            "perfect",
-            "fabulous",
-            "hilarious",
-            "epic",
-            "love",
-            "very well",
-            "really well",
-            "excited",
-            "astonished",
-            "cool",
-            "terrific",
-            "cheerful",
-            "contented",
-            "delighted",
-            "ecstatic",
-            "elated",
-            "glad",
-            "joyful",
-            "joyous",
-            "jubilant",
-            "lively",
-            "merry",
-            "overjoyed",
-            "peaceful",
-            "pleasant",
-            "pleased",
-            "thrilled",
-            "upbeat",
-            "blessed",
-            "blest",
-            "blissful",
-            "blithe",
-            "can't complain",
-            "captivated",
-            "chipper",
-            "chirpy",
-            "content",
-            "convivial",
-            "exultant",
-            "gay",
-            "gleeful",
-            "gratified",
-            "intoxicated",
-            "jolly",
-            "laughing",
-            "light",
-            "looking good",
-            "mirthful",
-            "on cloud nine",
-            "peppy",
-            "perky",
-            "playful",
-            "sparkling",
-            "sunny",
-            "tickled",
-            "up",
-            "alright:alright, all right",
-            "splendid",
-            "good-looking"
+            // Allgemeine positive Begriffe.
+            "Ausgezeichnet", "Fabelhaft", "Fantastisch", "Großartig", "Perfekt", "Toll",
+            "Erstaunlich", "Unglaublich", "Episch", "Wunderbar", "Prächtig", "Super",
+
+            // Glücklich & Zufrieden.
+            "Glücklich", "Froh", "Freudig", "Fröhlich", "Erfreut", "Zufrieden",
+            "Überglücklich", "Heiter", "Optimistisch", "Geschmeichelt",
+            "Ekstatisch", "Begeistert", "Jubelnd",
+
+            // Energetisch & Aufgeregt.
+            "Aufgeregt", "Lebhaft", "Munter", "Peppig", "Verspielt", "Spritzig", "Sonnig",
+            "Funkelnd", "Gekitzelt", "Auf Wolke sieben",
+
+            // Ruhig & Zufriedenstellend.
+            "Friedlich", "Angenehm", "Dankbar", "Gesättigt", "Geschmeidig", "Berauscht", "Gut",
+
+            // Umgangssprachlich & Ausdrucksstark.
+            "Cool", "Nett", "Lachend", "Leicht", "Gut aussehend", "In Ordnung",
+            "Alles bestens", "Kann mich nicht beschweren", "Oben"
         )
     }
 }
 
-class NegativeExpressionEntity : EnumEntity() {
-    override fun getEnum(lang: Language): List<String> {
+class NegativeReactionIntent(
+    val negativeExpressionEntity: NegativeExpressionEntity? = null,
+    val positiveExpressionEntity: PositiveExpressionEntity? = null
+) : Intent() {
+    override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "terrible:terrible,parable",
-            "bad:bad,dad,worst",
-            "horrible",
-            "awful",
-            "dreadful",
-            "atrocious",
-            "appalling",
-            "shit",
-            "sucks",
-            "crap",
-            "annoying",
-            "unacceptable",
-            "unprofessional",
-            "too shabby",
-            "flawed:flawed,flaws"
+            "@negativeExpressionEntity",
+            "Nicht @positiveExpressionEntity",
+            "Nicht so @positiveExpressionEntity"
+        )
+    }
+
+    override fun getNegativeExamples(lang: Language): List<String> {
+        return listOf(
+            "Nicht @negativeExpressionEntity",
+            "@positiveExpressionEntity"
         )
     }
 }
+
+
+class NegativeExpressionEntity : EnumEntity() {
+    override fun getEnum(lang: Language): List<String> {
+        return listOf(
+            // Allgemein schlecht.
+            "Schlecht", "Furchtbar", "Schrecklich", "Grauenhaft", "Miserabel", "Lächerlich",
+            "Unzumutbar", "Untragbar", "Bedauerlich",
+
+            // Starke negative Adjektive.
+            "Schlimm", "Katastrophal", "Entsetzlich", "Abscheulich", "Ekelhaft",
+            "Unverschämt", "Unerträglich", "Nervtötend", "Ernüchternd",
+
+            // Umgangssprachlich & Beleidigend.
+            "Scheiße", "Dreck", "Mist", "Zum Kotzen", "Nervig", "Beschissen", "Sinnlos",
+            "Zum Verzweifeln", "Frustrierend", "Ätzend",
+
+            // Fehler & Mängel.
+            "Fehlerhaft", "Mangelhaft", "Unvollständig", "Kaputt", "Verpfuscht", "Flawed",
+
+            // Unprofessionell & Unangemessen.
+            "Unprofessionell", "Unhöflich", "Respektlos", "Unangemessen", "Schäbig",
+            "Unakzeptabel", "Unzuverlässig", "Halbherzig", "Lieblos"
+        )
+    }
+}
+

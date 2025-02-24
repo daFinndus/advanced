@@ -19,9 +19,8 @@ val Idle: State = state(parent = Global) {
     include(randomHeadMovements())
     include(napWhenTired) // Sends the robot to "sleep" after a period of inactivity
 
-    init { // init is only performed once
-        if (furhat.isVirtual()) furhat.say("Add a virtual user to start the interaction")
-    }
+    /** This is only executed once */
+    init { if (furhat.isVirtual()) furhat.say("Füge einen virtuellen Nutzer hinzu, um das Programm zu starten.") }
 
     onEntry { // on entry performed every time entering the state
         furhat.beIdle() // custom function to set the robot in a specific 'mode'
@@ -40,41 +39,44 @@ val Idle: State = state(parent = Global) {
  * */
 val WaitingToStart: State = state(parent = Global) {
     include(randomHeadMovements())
-    include(SeekAttention) // Attention seeking behaviour
-    include(napWhenTired) // Go to sleep after a while if no users are engaging
+    include(SeekAttention) // Attention seeking behaviour.
+    include(napWhenTired) // Go to sleep after a while if no users are engaging.
 
     onEntry {
         furhat.beIdle()
-        // We need to check if we already have a user attending when entering the state,
+        // We need to check if we already have a user attending when entering the state.
         if (users.usersAttendingFurhat.isNotEmpty()) {
-            // We could create an actual senseUSerAttend event and let the onUserAttend trigger handle it.
+            // We could create an actual senseUserAttend event and let the onUserAttend trigger handle it.
             // EventSystem.send(SenseUserAttend.Builder().buildEvent())
             // But it will have the unfortunate effect of clearing other user data on the user.
             // So instead we simply copy the same action here as on the onUserAttend trigger.
-            log.debug("User ${users.usersAttendingFurhat.first()} attended in ${thisState.name}.")
+            log.debug("User ${users.usersAttendingFurhat.first().id} attended in ${thisState.name}.")
             furhat.attend(users.usersAttendingFurhat.first())
             goto(Active)
         } else {
             log.info("Waiting for user to attend.")
         }
     }
+
     onReentry {
         when {
             !users.hasAny() -> goto(Idle)
             furhat.isAttended() -> goto(Active)
-            else -> log.debug("Keep idling.") // do nothing particular - just keep idling
+            else -> log.debug("Keep idling.") // Do nothing particular - just keep idling.
         }
     }
+
     onUserAttend {
         log.debug("User ${it.id} attended in ${thisState.name}.")
         furhat.attend(it)
         goto(Active)
     }
+
     onUserLeave(instant = true) {
-        when { // "it" is the user that left
-            !users.hasAny() -> goto(Idle) // no more users
-            furhat.isAttending(it) -> furhat.attend(users.nextMostEngagedUser()) // current user left
-            else -> furhat.glance(it.head.location) // other user left, just glance
+        when { // "it" is the user that left.
+            !users.hasAny() -> goto(Idle) // No more users - back to idle.
+            furhat.isAttending(it) -> furhat.attend(users.nextMostEngagedUser()) // Go to the next user.
+            else -> furhat.glance(it.head.location) // Glance at the user that left.
         }
     }
 

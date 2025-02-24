@@ -2,33 +2,21 @@ package furhatos.app.advanced.setting
 
 import furhatos.flow.kotlin.FlowControlRunner
 import furhatos.flow.kotlin.furhat
-import furhatos.flow.kotlin.voice.PollyNeuralVoice
+import furhatos.flow.kotlin.voice.AzureVoice
 import furhatos.flow.kotlin.voice.Voice
+import furhatos.util.Gender
+import furhatos.util.Language
 
-class Persona(val name: String, val mask: String = "adult", val face: List<String>, val voice: List<Voice>)
+class Persona(val name: String, val mask: String = "adult", val face: String, val voice: Voice)
 
 fun FlowControlRunner.activate(persona: Persona) {
-    for (voice in persona.voice) {
-        if (voice.isAvailable) {
-            furhat.voice = voice
-            break
-        }
-    }
-
-    for (face in persona.face) {
-        if (furhat.faces[persona.mask]?.contains(face)!!) {
-            furhat.character = face
-            break
-        }
-    }
+    furhat.voice = persona.voice
+    furhat.character = persona.face
+    furhat.setInputLanguage(Language.GERMAN)
 }
 
 val furhatPersona = Persona(
-    name = "Furhat",
-    face = listOf(
-        "Jane",
-    ),
-    voice = listOf(
-        PollyNeuralVoice.Joanna()
-    ).shuffled() // The furhat persona is either male/female, so we randomize what voice to select
+    name = "Jan",
+    face = "Marty",
+    voice = AzureVoice(language = Language.GERMAN, gender = Gender.MALE)
 )

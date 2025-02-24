@@ -14,17 +14,17 @@ import furhatos.skills.UserManager
 /** Extensions for user manager */
 val UserManager.usersAttendingFurhat: List<User>
     get() = this.list.filter { it.isAttendingFurhat }
-        .sortedBy { it.head.location.distance(Location.ORIGIN) } // all users looking at furhat sorted by the closest user
+        .sortedBy { it.head.location.distance(Location.ORIGIN) } // All users looking at furhat sorted by the closest user.
 val UserManager.userClosestToFurhat: User get() = this.userClosestToPosition(Location.ORIGIN)
 fun UserManager.nextMostEngagedUser(): User {
-    // Signs of engagement
-    // 1. Looks at the robot
-    // 2. User standing closest
+    // Signs of engagement:
+    // 1. Looks at the robot.
+    // 2. User standing closest.
     when (count) {
         1 -> return list.first() // return the first (only) user.
         else -> when (usersAttendingFurhat.count()) {
             0 -> return userClosestToFurhat
-            else -> return usersAttendingFurhat.first() // the list is sorted by the closest user first
+            else -> return usersAttendingFurhat.first() // The list is sorted by the closest user first.
         }
     }
 }

@@ -26,39 +26,32 @@ val Nap: State = state {
     include(NapHeadMovements)
     include(DeepSleepWhenNeglected)
 
-    onEntry {
-        furhat.fallASleep()
-    }
+    onEntry { furhat.fallASleep() }
+
     onReentry {
         if (furhat.isAttended()) {
             furhat.listen()
         }
     }
-    onResponse<Greeting> {
+
+    onResponse<Greeting> { // This will listen for a greeting response by the user.
         raise(NluLib.WakeUp()) // Raise another intent to handle pass it on to that trigger handler.
     }
-    onResponse<NluLib.WakeUp> { // listen for either a wake-up- or a greeting intent.
+
+    onResponse<NluLib.WakeUp> { // Listen for either a wake-up- or a greeting intent.
         furhat.wakeUp()
         when {
             users.hasAny() -> goto(Active)
             !users.hasAny() -> goto(Idle)
         }
     }
-    onUserAttend { // Whenever a user looks at the robot, it will start to listen
-        reentry()
-    }
-    onResponse {
-        reentry()
-    }
-    onNoResponse {
-        reentry()
-    }
-    onNetworkFailed { // override (and silence) default fallback behaviour
-        reentry()
-    }
-    onResponseFailed { // override (and silence) default fallback behaviour
-        reentry()
-    }
+
+    // On each of these events onReentry is going to execute.
+    onResponse { reentry() }
+    onUserAttend { reentry() }
+    onNoResponse { reentry() }
+    onNetworkFailed { reentry() }
+    onResponseFailed { reentry() }
 }
 
 /**
@@ -72,6 +65,7 @@ val DeepSleep: State = state(PowerSaving) {
         delay(200)
         furhat.setVisibility(false, 3000) // Fade out face to black
     }
+
     onExit {
         furhat.setVisibility(true, 3000) // Fade in face
     }
