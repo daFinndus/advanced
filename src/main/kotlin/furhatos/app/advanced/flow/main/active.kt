@@ -19,11 +19,12 @@ import furhatos.nlu.common.Greeting
 val Active: State = state(Parent) {
     onEntry {
         furhat.beActive()
-        log.debug("Now I'm listening!")
+        log.debug("Now I'm listening in German, hopefully!")
 
         // We're leaving the initiative to the user and extending the listen timeout from default 5000 ms to 8000 ms.
         furhat.listen(8000)
     }
+
     onReentry {
         when {
             !users.hasAny() -> goto(Idle)
@@ -31,36 +32,40 @@ val Active: State = state(Parent) {
             else -> furhat.listen()
         }
     }
-    include(AutoUserAttentionSwitching) // Switch user after a while
-    include(AutoGlanceAway) // Glance away after some time of eye contact
+
+    include(AutoUserAttentionSwitching) // Switch user after a while.
+    include(AutoGlanceAway) // Glance away after some time of eye contact.
 
     /** Handle simple meet and greet conversation **/
-    // Handle multiple intents where one part of the intent was a Greeting
-    onPartialResponse<Greeting> {
-        furhat.attend(it.userId) // attend the user that spoke
+
+    onPartialResponse<Greeting> { // Handle multiple intents where one part of the intent was a Greeting.
+        log.info("Responding to greeting.")
+        furhat.attend(it.userId) // Attend the user that spoke.
         goto(GreetUser(it))
     }
+
     onResponse(listOf(Greeting(), HowAreYouIntent(), NiceToMeetYouIntent())) {
-        furhat.attend(it.userId) // attend the user that spoke
+        log.info("Responding to greeting, how are you or nice to meet you.")
+        furhat.attend(it.userId) // Attend the user that spoke.
         goto(GreetUser(it))
     }
-    /** Handle other (or no) user responses **/
-    onNoResponse {
-        // On no response we let the initiative remain with the user and just keep listening passively. 
-        // This overrides the default behavior: "Sorry I didn't hear you "
-        reentry()
-    }
+
     onResponse {
+        log.info("Unknown response.")
         // On unknown response, the robot reacts to the user speaking, but doesn't engage and take the initiative.
-        // This overrides the default behavior: "Sorry I didn't understand that"
-        furhat.attend(it.userId) // attend the user that spoke
+        // This overrides the default behavior: "Sorry I didn't understand that".
+        furhat.say("Entschuldigung, das habe ich nicht verstanden.")
+        furhat.say("Ich habe verstanden", it.text)
+        furhat.attend(it.userId) // Attend user that spoke.
         furhat.gesture(hearSpeechGesture)
         reentry()
     }
-    /** Handle Attention switching, see also default attention behaviour in parent state **/
+
     onUserAttend {
+        log.info("User ${it.id} attended.")
         furhat.attend(it)
         reentry()
     }
 
+    onNoResponse { reentry() }
 }

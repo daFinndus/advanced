@@ -36,25 +36,25 @@ val Init: State = state {
         /** Set testMode for speedy testing */
         testMode = true
 
-        /** define listening parameters */
-        furhat.param.endSilTimeout = 1000 //milliseconds
-        furhat.param.noSpeechTimeout = 5000 //milliseconds
-        furhat.param.maxSpeechTimeout = 15000 //milliseconds
+        /** Define listening parameters */
+        furhat.param.endSilTimeout = 1000 // Time to wait for silence after user has stopped speaking to trigger onResponse
+        furhat.param.noSpeechTimeout = 5000 // Time to wait for user to start speaking before triggering onNoResponse
+        furhat.param.maxSpeechTimeout = 15000 // Time until the robot interrupts the user if they speak too long
 
         /** Set our default interaction parameters */
         users.engagementPolicy = defaultEngagementPolicy
 
-        /** define our default engagement parameters */
+        /** Define our default engagement parameters */
         users.attentionGainedThreshold = DEFAULT_ATTENTION_GAINED_THRESHOLD
         users.attentionLostThreshold = DEFAULT_ATTENTION_LOST_THRESHOLD
 
-        /** define our default smile back behavior */
+        /** Define our default smile back behavior */
         furhat.enableSmileBack = true
+        smileBlockDelay = 5000
         smileProbability = 0.5
         bigSmileProbability = 0.3
-        smileBlockDelay = 5000 //milliseconds
 
-        /** enable alternate intent classifier
+        /** Enable alternate intent classifier
         see: https://docs.furhat.io/nlu/#alternative-classification */
         LogisticMultiIntentClassifier.setAsDefault()
 
@@ -69,6 +69,7 @@ val Init: State = state {
             // Ensure the logs directory exists before writing the log file
             val logDir = File("logs")
             if (!logDir.exists()) logDir.mkdirs() // Create directory if it doesn't exist
+
             val flowLoggerFile = File(logDir, "flowlog.txt")
             flowLogger.start(flowLoggerFile)
         }
@@ -76,22 +77,22 @@ val Init: State = state {
         /** Start parallel flow to manage the LED **/
         parallel(abortOnExit = false) { goto(InteractionGlow) }
     }
-    
+
     onEntry {
         /** Set our main character - defined in personas */
         activate(furhatPersona)
 
-        /** start interaction */
+        /** Start interaction */
         when {
             users.hasAny() -> {
-                log.debug("User present - start the interaction. ")
+                log.debug("User present - start the interaction.")
                 furhat.attend(users.random)
                 goto(WaitingToStart)
             }
 
             else -> {
-                log.debug("No users present - idling. ")
-                goto(Idle) // Consider starting the interaction in Sleep.
+                log.debug("No users present - idling.")
+                goto(Idle)
             }
         }
     }

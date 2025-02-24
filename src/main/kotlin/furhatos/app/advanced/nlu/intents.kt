@@ -11,13 +11,16 @@ import furhatos.util.Language
 class NiceToMeetYouIntent : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "Glad to meet you",
-            "A pleasure to meet you",
-            "Nice to see you",
-            "Great to meet you",
-            "Happy to see you",
-            "Very nice to finally meet you",
-            "Fun to meet up with you"
+            "Freut mich, dich kennenzulernen.",
+            "Schön, dich zu treffen.",
+            "Sehr erfreut, dich zu sehen.",
+            "Es ist mir eine Freude, dich kennenzulernen.",
+            "Toll, dich zu treffen.",
+            "Endlich lernen wir uns kennen!",
+            "Schön, dich mal in echt zu sehen.",
+            "Nett, dich kennenzulernen.",
+            "Ich freue mich, dich kennenzulernen.",
+            "Angenehm!"
         )
     }
 }
@@ -25,25 +28,33 @@ class NiceToMeetYouIntent : Intent() {
 class HowAreYouIntent : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "How are you",
-            "How are you doing today",
-            "What's up",
-            "How are things with you",
-            "How's it going?",
-            "How are you feeling",
-            "How's life",
-            "What's going on with you"
+            "Wie geht es dir?",
+            "Wie läuft es bei dir?",
+            "Was geht?",
+            "Wie steht’s?",
+            "Wie fühlst du dich?",
+            "Was gibt’s Neues?",
+            "Wie ist die Lage?",
+            "Wie läuft dein Tag?",
+            "Alles gut bei dir?",
+            "Wie sieht’s aus?",
+            "Alles klar bei dir?"
         )
     }
 }
 
+
 class HelpIntent : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "I need help",
-            "Help me please",
-            "Can someone help me",
-            "I need assistance"
+            "Ich brauche Hilfe.",
+            "Hilf mir bitte.",
+            "Kann mir jemand helfen?",
+            "Ich benötige Unterstützung!",
+            "Kannst du mir helfen?",
+            "Ich komme nicht weiter.",
+            "Ich weiß nicht, was ich tun soll.",
+            "Bitte hilf mir!"
         )
     }
 }
@@ -51,15 +62,19 @@ class HelpIntent : Intent() {
 class WhatIsThisIntent : Intent() {
     override fun getExamples(lang: Language): List<String> {
         return listOf(
-            "What is this",
-            "What am I supposed to say",
-            "What should I say",
-            "I don't know what to do",
-            "What am I supposed to do now",
-            "Should I say something",
-            "What's going on",
-            "What is happening here",
-            "Can someone tell me what is going on"
+            "Was ist das?",
+            "Was soll ich sagen?",
+            "Was kannst du?",
+            "Was ist das hier?",
+            "Was machst du?",
+            "Was muss ich tun?",
+            "Ich weiß nicht, was ich machen soll.",
+            "Was soll ich jetzt tun?",
+            "Soll ich etwas sagen?",
+            "Was geht hier vor?",
+            "Was passiert hier?",
+            "Kann mir jemand erklären, was los ist?",
+            "Ich verstehe das nicht."
         )
     }
 }
