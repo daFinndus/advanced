@@ -29,11 +29,11 @@ class Phrases {
     val A_feelGoodUtterance: Utterance = utterance { // Define complete and more complex utterances to get more variance and rich expressions without cluttering the flow.
         +"I feel"
         random {
-            +"good"
-            +"pretty good"
-            +"hella nice"
-            +"super great"
-            +"skibidi"
+            +"good."
+            +"pretty good."
+            +"hella nice."
+            +"super great."
+            +"skibidi."
         }
         +Gestures.BigSmile
     }

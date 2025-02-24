@@ -17,7 +17,7 @@ val UniversalWizardButtons = partialState {
 /** Buttons to speed up testing **/
 val TestButtons = partialState {
     onButton("Idle", color = Color.Blue, section = Section.RIGHT) { goto(Idle) }
-    onButton("WaitingForEngagedUser", color = Color.Blue, section = Section.RIGHT) { goto(WaitingToStart) }
+    onButton("Waiting for engaged user", color = Color.Blue, section = Section.RIGHT) { goto(WaitingToStart) }
     onButton("Active", color = Color.Blue, section = Section.RIGHT) { goto(Active) }
     onButton("Greeting", color = Color.Blue, section = Section.RIGHT) { goto(GreetUser(null)) }
     onButton("How are you", color = Color.Blue, section = Section.RIGHT) { call(HowAreYou) }
